@@ -1,0 +1,109 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="login.css">
+
+</head>
+
+<body>
+<div> 
+   <div id="loadingScreen">
+     <div class="loader"></div>
+     <p>loading...</p>
+   </div>
+   
+    <div class="floating-letters"></div>
+    
+<div class="login-container">
+<h1 class="login-title">💌</h1>
+<img src="/profiee.jpg" class="profile-pic">
+        
+
+<form id="loginform">
+<input type="text" id="username" class="input-field" placeholder="username"required >
+<input type= "password" id="password" class="input-field" placeholder="password"required >
+
+<button type="submit" class="login-btn" name="Submit">Submit</button><br> 
+<button type="reset" class="login-btn"  name="Reset">Reset</button>
+</form>
+<p id="message"></p>
+
+
+<script>
+
+
+ document.getElementById("loginform").addEventListener("submit", function(event) {
+  event.preventDefault(); // prevent form from refreshing the page
+
+     document.body.style.opacity="0.5";
+
+  // Sample correct credentials (hardcoded)
+  const correctUsername = "prettylady@";
+  const correctPassword = "082408_ladyguanaviere";
+      
+  // Get user input
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  const message = document.getElementById("message");
+  
+  // Check credentials
+if (username === correctUsername && password === correctPassword) {
+  message.style.color = "green";
+  message.textContent = "Login successful!";
+  
+  // Show loading screen
+  const loading = document.getElementById("loadingScreen");
+  loading.classList.add("active");
+  
+  // Wait then redirect
+  setTimeout(() => {
+    window.location.href = "mess.html";
+  }, 2000); // 2 seconds loading
+  
+} else {
+  message.style.color = "red";
+  message.textContent = "Invalid username or password.";
+}
+});
+
+const container = document.querySelector('.floating-letters');
+
+function createLetter() {
+  const letter = document.createElement('span');
+  letter.innerHTML = "💌";
+
+  // Random horizontal position
+  letter.style.left = Math.random() * 100 + "vw";
+
+  // Random size
+  const size = Math.random() * 30 + 20;
+  letter.style.fontSize = size + "px";
+
+  // Random animation duration
+  const duration = Math.random() * 5 + 5;
+  letter.style.animationDuration = duration + "s";
+
+  // Random horizontal drift
+  const drift = Math.random() * 100 - 50;
+  letter.style.setProperty('--drift', drift + "px");
+
+  container.appendChild(letter);
+
+  // Remove after animation ends
+  setTimeout(() => {
+    letter.remove();
+  }, duration * 1000);
+}
+
+// Generate letters continuously
+setInterval(createLetter, 500);
+
+  
+</script>
+  
+
+
+</div>
+</body>
+</html>

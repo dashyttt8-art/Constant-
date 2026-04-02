@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cute Box Letter</title>
+
+<style>
+/* (your CSS unchanged) */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffe6f0;
+  font-family: Arial, sans-serif;
+}
+
+/* BOX */
+.box {
+  position: relative;
+  width: 220px;
+  height: 160px;
+  background: #ff99cc;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.4s;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* BOX LID */
+.lid {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  background: #ff66aa;
+  border-radius: 10px 10px 0 0;
+  transition: 0.4s;
+}
+
+/* BOW */
+.bow {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 40px;
+  background: pink;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* LETTER */
+
+
+/* OPEN STATE */
+.box.open .lid {
+  transform: rotateX(120deg);
+  transform-origin: top;
+}
+
+.box.open .letter {
+  transform: translate(-50%, -20%);
+  opacity: 1;
+}
+.letter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 600px;
+  height: 300px;
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: 0.4s ease;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+/* when opened */
+.letter.open {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+.bow{
+  display:none;
+}
+
+/* FLOWERS */
+.flowers {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.flower {
+  position: absolute;
+  bottom: -50px;
+  font-size: 20px;
+  animation: floatUp linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+#logoutBtn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  background: #ff66aa;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+#logoutBtn:hover {
+  background: #ff3385;
+  transform: scale(1.1);
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 BACKGROUND MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="/mylifetime.mp3" type="audio/mpeg">
+</audio>
+
+<button id="logoutBtn">💗 Logout</button>
+
+<div class="flowers" id="flowers"></div>
+
+<div class="box" id="box">
+  <div class="lid"></div>
+  <div class="bow"></div>
+
+  <div class="letter">
+    <h2> 💌 TO LADY GUANAVIERE</h2>
+    <h4>Hi!!</h4>
+    <h5>
+    I'm not really sure how to start this, and honestly, I think it's better if you don't know who this is. I've been thinking if i will send this or not, because I'm scared of what will happen if i send you this, but I just couldn't let this moment pass without saying something. Congratulations! You did it. You made it again, and I know it probably wasn't easy, there were days you were tired, maybe even doubting yourself, but you still kept going. That says a lot about you. What you achieved didn't happen overnight. It came from quite sacrifice and unseen struggles. <br><br>
+    
+      I'm proud of you! I see how strong you are for not letting your walls fall, even if it wasn't easy. I've seen it,
+      even from afar. You might not realize, but the way you pushed through everything.... it's something to be proud of. And not everyone has that kind of strength, i don't need you to know who I am. Just know that someone out here is genuinely happy for you. And your hard work didn't go unnoticed. <br><br>
+      
+      And remember when everything feels heavy, just let it out. Just cry. I know you're a brave person, but crying doesn't mean you're a weak, it's just means you're tired. But always remember you're brave at kaya mo yan, I know there are times you think about giving up, but I know you'll never do that, because I know you can do it. And always take care of yourself Guana.<br><br>
+      
+      Keep going, keep growing and keep believing in yourself the way you did to get here. I hope you carry this moment with you, the proof that you're capable of more than you think. You deserve it! Good luck to your new journey, always remember I'm always here for you. To support you in every dream you want to achieve, In ways you may not always see or understand, I’ll always be here supporting you silently though I’m far away, my presence remains.I’ll always stand by you, proud of everything you are and everything you’ll become.... and I appreciate you more than you can ever imagine, no matter what you think about yourself in my eyes you're always perfect. Thank you for your life I may not be loud about it, but I'm always here for you. God bless you 🩵 
+
+<br><br>-Someone who believes in you:)
+    </h5>
+  </div>
+</div>
+
+<script>
+const box = document.getElementById("box");
+const music = document.getElementById("bgMusic");
+
+box.addEventListener("click", () => {
+  box.classList.toggle("open");
+
+  if (box.classList.contains("open")) {
+    // ▶️ Play when opened
+    music.play();
+  } else {
+    // ⏹ Stop when closed
+    music.pause();
+    music.currentTime = 0; // reset to start
+  }
+});
+/* FLOWERS */
+const flowerContainer = document.getElementById("flowers");
+
+function createFlower() {
+  const flower = document.createElement("div");
+  flower.classList.add("flower");
+
+  const flowers = ["🌻", "💐", "🌹", "🌸","🌷"];
+  flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+
+  flower.style.left = Math.random() * 100 + "vw";
+  flower.style.fontSize = Math.random() * 60 + 30 + "px";
+  flower.style.animationDuration = Math.random() * 5 + 5 + "s";
+
+  flowerContainer.appendChild(flower);
+
+  setTimeout(() => {
+    flower.remove();
+  }, 10000);
+}
+
+setInterval(createFlower, 500);
+
+/* LOGOUT */
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  music.pause();
+  music.currentTime = 0;
+
+  window.location.href = "login.html";
+});
+
+// fade out 
+function fadeOutMusic() {
+  let fade = setInterval(() => {
+    if (music.volume > 0.1) {
+      music.volume -= 0.1;
+    } else {
+      music.musicfadeOutmusic();
+      music.currentTime = 0;
+      music.volume = 1; // reset
+      clearInterval(fade);
+    }
+  }, 100);
+}
+</script>
+
+</body>
+</html>
