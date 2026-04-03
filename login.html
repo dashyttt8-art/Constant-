@@ -31,77 +31,79 @@
 
 <script>
 
+// Auto redirect if already logged in
+if (sessionStorage.getItem("isLoggedIn") === "true") {
+  window.location.href = "mess.html";
+}
 
- document.getElementById("loginform").addEventListener("submit", function(event) {
-  event.preventDefault(); // prevent form from refreshing the page
+// Logout function (used in other page)
+function logout() {
+  sessionStorage.removeItem("isLoggedIn");
+  window.location.href = "index.html";
+}
 
-     document.body.style.opacity="0.5";
+document.getElementById("loginform").addEventListener("submit", function(event) {
+  event.preventDefault();
 
-  // Sample correct credentials (hardcoded)
+  document.body.style.opacity = "0.5";
+
   const correctUsername = "prettylady@";
   const correctPassword = "082408_ladyguanaviere";
-      
-  // Get user input
+
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-
   const message = document.getElementById("message");
-  
-  // Check credentials
-if (username === correctUsername && password === correctPassword) {
-  message.style.color = "green";
-  message.textContent = "Login successful!";
-  
-  // Show loading screen
-  const loading = document.getElementById("loadingScreen");
-  loading.classList.add("active");
-  
-  // Wait then redirect
-  setTimeout(() => {
-    window.location.href = "mess.html";
-  }, 2000); // 2 seconds loading
-  
-} else {
-  message.style.color = "red";
-  message.textContent = "Invalid username or password.";
-}
+
+  if (username === correctUsername && password === correctPassword) {
+    message.style.color = "green";
+    message.textContent = "Login successful!";
+
+    // Save login
+    sessionStorage.setItem("isLoggedIn", "true");
+
+    const loading = document.getElementById("loadingScreen");
+    loading.classList.add("active");
+
+    setTimeout(() => {
+      window.location.href = "mess.html";
+    }, 2000);
+
+  } else {
+    message.style.color = "red";
+    message.textContent = "Invalid username or password.";
+    document.body.style.opacity = "1"; // restore if wrong
+  }
 });
 
+
+// Floating letters
 const container = document.querySelector('.floating-letters');
 
 function createLetter() {
   const letter = document.createElement('span');
   letter.innerHTML = "💌";
 
-  // Random horizontal position
   letter.style.left = Math.random() * 100 + "vw";
 
-  // Random size
   const size = Math.random() * 30 + 20;
   letter.style.fontSize = size + "px";
 
-  // Random animation duration
   const duration = Math.random() * 5 + 5;
   letter.style.animationDuration = duration + "s";
 
-  // Random horizontal drift
   const drift = Math.random() * 100 - 50;
   letter.style.setProperty('--drift', drift + "px");
 
   container.appendChild(letter);
 
-  // Remove after animation ends
   setTimeout(() => {
     letter.remove();
   }, duration * 1000);
 }
 
-// Generate letters continuously
 setInterval(createLetter, 500);
 
-  
 </script>
-  
 
 
 </div>
