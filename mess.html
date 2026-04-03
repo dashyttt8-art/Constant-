@@ -139,10 +139,17 @@ body {
 </head>
 
 <body>
-
+ 
+<script>
+// Check if user is logged in
+if (sessionStorage.getItem("isLoggedIn") !== "true") {
+  window.location.replace("login.html");
+}
+</script> 
+ 
 <!-- 🎵 BACKGROUND MUSIC -->
 <audio id="bgMusic" loop>
-  <source src="mylifetime.mp3" type="audio/mpeg">
+  <source src="/mylifetime.mp3" type="audio/mpeg">
 </audio>
 
 <button id="logoutBtn">💗 Logout</button>
@@ -212,9 +219,14 @@ setInterval(createFlower, 500);
 
 /* LOGOUT */
 document.getElementById("logoutBtn").addEventListener("click", () => {
+  // Stop music
   music.pause();
   music.currentTime = 0;
 
+  // 🔥 CLEAR SESSION (THIS IS THE IMPORTANT PART)
+  sessionStorage.removeItem("isLoggedIn");
+
+  // Redirect to login page
   window.location.href = "login.html";
 });
 
@@ -224,13 +236,20 @@ function fadeOutMusic() {
     if (music.volume > 0.1) {
       music.volume -= 0.1;
     } else {
-      music.musicfadeOutmusic();
+      music.pause();
       music.currentTime = 0;
-      music.volume = 1; // reset
+      music.volume = 1;
       clearInterval(fade);
     }
   }, 100);
 }
+
+// Prevent back button
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+  history.go(1);
+};
+
 </script>
 
 </body>
