@@ -1,7 +1,219 @@
 <html>
-
 <head>
-<link rel="stylesheet" href="login.css">
+  <style>
+/*CSS FOR LOGIN */
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Floating soft background */
+body::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 105, 180, 0.2) 0%, transparent 50%);
+  animation: floatBg 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes floatBg {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* LOGIN CARD */
+.login-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 2.5rem;
+  border-radius: 30px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  animation: bounceIn 1s ease-out;
+  border: 2px solid rgba(255, 182, 193, 0.3);
+  z-index: 1;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% { transform: scale(1.05); }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.login-title {
+  text-align: center;
+  color: #ff6b9d;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* INPUT */
+.input-field {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #ffe4e6;
+  border-radius: 25px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  transition: 0.3s;
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: #ff6b9d;
+  box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+  transform: translateY(-2px);
+}
+
+/* BUTTON */
+.login-btn {
+  width: 100%;
+  padding: 1.2rem;
+  background: linear-gradient(45deg, #ff6b9d, #ff8fab);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(255, 107, 157, 0.4);
+}
+
+/* PROFILE PIC (FIXED - NO ROTATION) */
+.profile-pic {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 10px auto;
+  border: 3px solid pink;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+  animation: profileFloat 3s ease-in-out infinite;
+}
+
+@keyframes profileFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* FLOATING LETTERS */
+.floating-letters {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.floating-letters span {
+  position: absolute;
+  bottom: -50px;
+  font-size: 24px;
+  opacity: 0.7;
+  animation: floatUp linear forwards;
+  will-change: transform, opacity;
+}
+
+/* SMOOTH FLOAT */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-50vh) translateX(20px);
+  }
+  100% {
+    transform: translateY(-110vh) translateX(-20px);
+    opacity: 0;
+  }
+}
+
+/* LOADING SCREEN */
+#loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+#loadingScreen.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* SPINNER */
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid white;
+  border-top: 5px solid #ff4b7d;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .login-container {
+    margin: 1rem;
+    padding: 2rem;
+  }
+} 
+  
+</style>
 
 </head>
 
